@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+          <link rel="stylesheet" href="/stylesheets/index.css" />
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
+       <script src="https://api.dmcdn.net/all.js"></script>
+      <script src="socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <h1 id="some"></h1>
+
+<div id="player"></div>
+<h1 id="heading"></h1>
+<script type="text/javascript">
+var socket  = io.connect();
+ socket.on('cmd',function(data){
+     // document.getElementById("heading").innerHTML=data;
+      switch(data)
+      {
+          case 37:rv();
+          break;
+          case 38:pl();
+          break;
+          case 39:fw();
+          break;
+          case 40:ps();
+          break;
+          case 17:fs();
+          break;
+          
+      }
+   });
+var player = DM.player(document.getElementById('player'), {
+  video: 'x328cr8_12-runs-needed-off-1-ball-team-wins-most-amazing-finish-ever_sport'
+});
+var pl=function(){
+    player.play();
+};
+var ps=function(){
+    player.pause();
+};
+
+var fw=function(){
+    player.seek(player.currentTime+5);
+};
+var rv=function(){
+    player.seek(player.currentTime-5);
+};
+
+var fs=function(){
+    console.log("fs called");
+    console.log(player.fullscreen);
+    if(player.fullscreen)
+    {
+    player.player.setFullscreen(true);
+    }
+    else
+    {
+        player.player.setFullscreen(false);
+    }
+}
+</script>
+  </body>
+</html>
